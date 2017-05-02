@@ -1,4 +1,4 @@
-/*global firebase, _pairshaped$elm_firebase$Native_Shared, _elm_lang$core$Native_Scheduler, F2, F3 */
+/*global firebase, _elm_lang$core$Native_Scheduler, _pairshaped$elm_firebase$Native_Shared, F2, F3 */
 
 var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-disable-line no-unused-vars
 
@@ -53,6 +53,14 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
     var app = appModel.app()
 
     return authToModel(firebase.auth(app))
+  }
+
+
+  var app = function (authModel) {
+    debug(".app", authModel)
+    var auth = authModel.auth()
+
+    return _pairshaped$elm_firebase$Native_Shared.appToModel(auth.app)
   }
 
 
@@ -214,6 +222,7 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
 
   return {
     "init": init,
+    "app": app,
     "currentUser": currentUser,
     "confirmPasswordReset": F3(confirmPasswordReset),
     "createUserWithEmailAndPassword": F3(createUserWithEmailAndPassword),

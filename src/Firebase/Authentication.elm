@@ -24,7 +24,6 @@ import Native.Authentication
      * auth.applyActionCode
      * auth.checkActionCode
      * auth.getRedirectResult
-     * auth.onAuthStateChanges
 
    I will look into adding these later if there are any needs
 -}
@@ -34,6 +33,11 @@ import Native.Authentication
 init : Firebase.App -> Auth
 init =
     Native.Authentication.init
+
+
+app : Auth -> App
+app =
+    Native.Authentication.app
 
 
 currentUser : Auth -> Maybe User
@@ -54,6 +58,11 @@ createUserWithEmailAndPassword =
 fetchProvidersForEmail : String -> Auth -> Task x (List String)
 fetchProvidersForEmail =
     Native.Authentication.fetchProvidersForEmail
+
+
+onAuthStateChanged : Auth -> (Maybe User -> msg) -> Sub msg
+onAuthStateChanged auth tagger =
+    subscription (MySub auth tagger)
 
 
 sendPasswordResetEmail : String -> Auth -> Task x ()
