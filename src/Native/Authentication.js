@@ -26,7 +26,7 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
     return {
       ctor: "Auth",
       auth: getAuth,
-      eventEmitter: getEventEmitter,
+      onAuthStateChanged: getEventEmitter,
     }
   }
 
