@@ -1,4 +1,4 @@
-/*global firebase, _elm_lang$core$Native_Scheduler, F2, F3 */
+/*global firebase, _pairshaped$elm_firebase$Native_Shared, _elm_lang$core$Native_Scheduler, F2, F3 */
 
 var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-disable-line no-unused-vars
 
@@ -16,9 +16,19 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
       return auth
     }
 
+    var eventEmitter = _pairshaped$elm_firebase$Native_Shared.newEventEmitter()
+    auth.onAuthStateChanged(function (user) {
+      eventEmitter.publish("onAuthStateChanged", user)
+    })
+
+    var getEventEmitter = function () {
+      return eventEmitter
+    }
+
     return {
       ctor: "Auth",
-      auth: getAuth
+      auth: getAuth,
+      eventEmitter: getEventEmitter,
     }
   }
 
