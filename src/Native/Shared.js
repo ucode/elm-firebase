@@ -111,6 +111,37 @@ var _pairshaped$elm_firebase$Native_Shared = function () {
     })
   }
 
+  var newEventEmitter = function () {
+    var EventEmitter = function () {
+      var events = {}
+
+      this.publish = function (name, data) {
+        var handlers = events[name]
+        if (handlers) {
+          handlers.forEach(function (handler) {
+            handler.call(this, data)
+          })
+        }
+      }
+
+      this.subscribe = function (name, handler) {
+        if (events[name]) {
+          events[name].push(handler)
+        } else {
+          events[name] = [handler]
+        }
+      }
+
+      this.unsubscribe = function (name, handler) {
+        var handlers = events[name]
+        if (handlers) {
+          handlers.splice(handlers.indexOf(handler))
+        }
+      }
+    }
+    return new EventEmitter()
+  }
+
   //
 
 
@@ -125,6 +156,7 @@ var _pairshaped$elm_firebase$Native_Shared = function () {
     "queryToModel": queryToModel,
     "sourceOnSnapshot": sourceOnSnapshot,
     "sourceOffSnapshot": sourceOffSnapshot,
-    "sourceOnceSnapshot": sourceOnceSnapshot
+    "sourceOnceSnapshot": sourceOnceSnapshot,
+    "newEventEmitter": newEventEmitter,
   }
 }()
