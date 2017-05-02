@@ -113,30 +113,20 @@ var _pairshaped$elm_firebase$Native_Shared = function () {
 
   var newEventEmitter = function () {
     var EventEmitter = function () {
-      var events = {}
+      var handler
 
-      this.publish = function (name, data) {
-        var handlers = events[name]
-        if (handlers) {
-          handlers.forEach(function (handler) {
-            handler.call(this, data)
-          })
+      this.publish = function (data) {
+        if (handler) {
+          handler.call(this, data)
         }
       }
 
-      this.subscribe = function (name, handler) {
-        if (events[name]) {
-          events[name].push(handler)
-        } else {
-          events[name] = [handler]
-        }
+      this.subscribe = function (newHandler) {
+        handler = newHandler
       }
 
-      this.unsubscribe = function (name, handler) {
-        var handlers = events[name]
-        if (handlers) {
-          handlers.splice(handlers.indexOf(handler))
-        }
+      this.unsubscribe = function () {
+        handler = undefined
       }
     }
     return new EventEmitter()

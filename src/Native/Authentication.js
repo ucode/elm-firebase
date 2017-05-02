@@ -17,9 +17,7 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
     }
 
     var eventEmitter = _pairshaped$elm_firebase$Native_Shared.newEventEmitter()
-    auth.onAuthStateChanged(function (user) {
-      eventEmitter.publish("onAuthStateChanged", user)
-    })
+    auth.onAuthStateChanged(eventEmitter.publish)
 
     var getEventEmitter = function () {
       return eventEmitter
