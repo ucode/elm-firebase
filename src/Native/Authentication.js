@@ -1,6 +1,6 @@
 /*global firebase, _elm_lang$core$Native_Scheduler, F2, F3 */
 
-var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-disable-line no-unused-vars
+var _ucode$elm_firebase$Native_Authentication = function () { // eslint-disable-line no-unused-vars
 
   // Utilities
 
@@ -73,7 +73,7 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
         })
         .catch(function (err) {
           callback(
-            _elm_lang$core$Native_Scheduler.fail(_pairshaped$elm_firebase$Native_Shared.errorToModel(err))
+            _elm_lang$core$Native_Scheduler.fail(_ucode$elm_firebase$Native_Shared.errorToModel(err))
           )
         })
     })
@@ -95,7 +95,7 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
         })
         .catch(function (err) {
           callback(
-            _elm_lang$core$Native_Scheduler.fail(_pairshaped$elm_firebase$Native_Shared.errorToModel(err))
+            _elm_lang$core$Native_Scheduler.fail(_ucode$elm_firebase$Native_Shared.errorToModel(err))
           )
         })
     })
@@ -140,7 +140,7 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
       })
       .catch(function (err) {
         callback(
-          _elm_lang$core$Native_Scheduler.fail(_pairshaped$elm_firebase$Native_Shared.errorToModel(err))
+          _elm_lang$core$Native_Scheduler.fail(_ucode$elm_firebase$Native_Shared.errorToModel(err))
         )
       })
   }
@@ -192,7 +192,7 @@ var _pairshaped$elm_firebase$Native_Authentication = function () { // eslint-dis
         })
         .catch(function (err) {
           callback(
-            _elm_lang$core$Native_Scheduler.fail(_pairshaped$elm_firebase$Native_Shared.errorToModel(err))
+            _elm_lang$core$Native_Scheduler.fail(_ucode$elm_firebase$Native_Shared.errorToModel(err))
           )
         })
     })
