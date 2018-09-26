@@ -58,7 +58,7 @@ isAnonymous =
     Native.Authentication.User.isAnonymous
 
 
-photoURL : User -> Maybe String
+photoURL : User -> String
 photoURL =
     Native.Authentication.User.photoURL
 
