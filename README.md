@@ -1,92 +1,61 @@
-# Important Note:
-
-Firebase 4.x is being open sourced, and I'll be making an effort and/or facilitating a pure translation in Elm. If you're interested in helping or following the discussion, check out [Issue #29: Translate Javascript SDK](https://github.com/pairshaped/elm-firebase/issues/29)
-
-# WARNING
-
-## The state of this library
-
-The current state of this is very limited, and this is very much in **alpha**. Consider the API in flux.
-
-It is completely possible that master will be broken at any given time until we hit a stable 1.x.
-
-## Elm guarantees
-
-In it's current state, **elm-firebase completely removes any runtime guarantees that Elm provides**. This is because firebase is a close-source black box, full of mystery and wonder, which makes it very untestable. When you use this library, you are risking, as [@rtfeldman](https://github.com/rtfeldman) put it; "wrapping a JS library where you can't even know how it works is just bound to cost you hours of debugging down the line".
-
-With that in mind, feel free to play with this, but use it at your own risk.
-
-# Alternatives
-
- - [elmfire](https://github.com/ThomasWeiser/elmfire)
- - Using elm [port modules](https://guide.elm-lang.org/interop/javascript.html)
-
 # elm-firebase
 
-**elm-firebase** is a set of bindings between Elm >= 0.18 and Firebase 3.x.
+An adapter to use Firebase with Elm 0.18
 
-## Goals
+> Warning: This library makes heavy use of native code, and therefore has a high likelyhood of causing runtime errors. Use at your own risk.
 
- - Be as close to the javascript api as possible.
- - Follow the elm architecture.
+## A note about this fork
+
+This repository, ucode/elm-firebase, is a fork of pairshaped/elm-firebase. The upstream repository has several pending pull requests that fix bugs we were running into, so we merged them in this repository.
+
+We do not plan to update this library to 0.19, but it is likely that a 0.19 elm-firebase library will be created eventually.
+
+## Alternatives
+
+- [ports](https://guide.elm-lang.org/interop/ports.html) (all Elm versions)
+- [ThomasWeiser/elmfire](https://github.com/ThomasWeiser/elmfire) (Elm 0.17)
 
 ## Getting started
 
-### Elm
+1. Add this library to your `elm-package.json`
+2. Use [elm-github-install](https://github.com/gdotdesign/elm-github-install) to download the code
+3. Load the Firebase JS SDK in your HTML
 
-First, you'll need to install [elm-github-install](https://github.com/gdotdesign/elm-github-install).
-
-```bash
-$ npm install elm-github-install -g
-```
-
-Then you can add elm-firebase to your elm-package.json like so:
+### `elm-package.json` example
 
 ```json
 {
   "dependencies": {
-    "pairshaped/elm-firebase": "0.0.13 <= v < 1.0.0"
+    "ucode/elm-firebase": "x.y.z <= v < x.y.z"
   },
   "dependency-sources": {
-    "pairshaped/elm-firebase": {
-      "url": "https://github.com/pairshaped/elm-firebase",
-      "ref": "0.0.13"
+    "ucode/elm-firebase": {
+      "url": "https://github.com/ucode/elm-firebase",
+      "ref": "x.y.z"
     }
   }
 }
 ```
 
-Now you're ready to install!
+Of course, replace `x.y.z` with the appropriate version number. [See all versions here](https://github.com/ucode/elm-firebase/releases).
 
-```bash
-$ elm-github-install
+### elm-github-install
+
+```sh
+$ npx -p elm-github-install elm-install
+# or
+$ npm i -g elm-github-install
+$ elm-install
 ```
 
-### Your HTML files
-
-You'll need to include the firebase javascripts yourself. That could either mean bower, webpack+npm, or using the gstatic cdn.
-
-Here are a list of firebase versions that have or will be tested:
-
-| Version | Works?   | CDN Link |
-|---------|----------|----------|
-| 3.6.9   | YES      | https://www.gstatic.com/firebasejs/3.6.9/firebase.js |
-| 3.7.1   | Probably | https://www.gstatic.com/firebasejs/3.7.1/firebase.js |
-| 3.7.4   | YES      | https://www.gstatic.com/firebasejs/3.7.4/firebase.js |
-| 3.8.0   | Probably | https://www.gstatic.com/firebasejs/3.8.0/firebase.js |
-| 3.9.0   | YES      | https://www.gstatic.com/firebasejs/3.9.0/firebase.js |
-
-If you run into a weird or unexplainable bug, please ensure you are using a version that has been tested and verified.
-
-I expect all the 3.x firebase versions to work but sticking to known versions will help eliminate potential bugs if a method's behaviour is changed.
-
-## Key differences to the library keep things simple in Elm
+## Key differences from JavaScript library
 
  - `snapshot.val()` maps to `Firebase.Database.Snapshot.value snapshot` rather than `Firebase.Database.Snapshot.val snapshot`. I chose to be more explicit because I thought `val` wasn't as meaningful as it could be.
- - `reference.on`, `reference.off`, `query.on`, and `query.off` map to singular subscription methods: `Firebase.Database.Reference.on` and `Firebase.Database.Query.on` respectively.
-When you're done, just remove your subscription from `Sub.batch` and elm-firebase will do the rest!
+ - `reference.on`, `reference.off`, `query.on`, and `query.off` map to singular subscription methods: `Firebase.Database.Reference.on` and `Firebase.Database.Query.on` respectively. When you're done, just remove your subscription from `Sub.batch` and elm-firebase will do the rest!
 
-## Connecting to your firebase database
+## Examples
+
+### Connecting to your firebase database
 
 ```elm
 import Html
@@ -119,7 +88,7 @@ init =
           Firebase.init
               { apiKey = "your firebase api key"
               , databaseURL = "https://your-firebase-app.firebaseio.com"
-              , -- These are necessary for just connecting to your database
+              , -- These aren't necessary for just connecting to your database
                 authDomain = ""
               , storageBucket = ""
               , messagingSenderId = ""
@@ -146,7 +115,7 @@ init =
       )
 ```
 
-## Getting the value of a reference
+### Getting the value of a reference
 
 ```elm
 import Firebase
@@ -195,7 +164,7 @@ update msg model =
 ```
 
 
-## Subscribing to changes of a reference
+### Subscribing to changes of a reference
 
 ```elm
 import Firebase
@@ -254,7 +223,7 @@ subscriptions model =
           ]
 ```
 
-## Example
+## More examples
 
 Based on excellent advice from [@pdamoc](https://github.com/pdamoc), here is [elm-firebase-todomvc](https://github.com/mrozbarry/elm-firebase-todomvc), and a live demo [here](https://elm-firebase-todomvc.firebaseapp.com/).
 
